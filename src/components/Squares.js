@@ -40,7 +40,11 @@ export default function Squares() {
     // Set the id argument to become the active id in state
     // (unless it already is, in which case we should reset
     // the currently active square id back to initial state).
-    setActiveSquare(id) ? activeSquare : setActiveSquare(id)
+    if (activeSquare === id) {
+      setActiveSquare(null);
+    } else {
+      setActiveSquare(id);
+    }
   };
 
   return (
@@ -51,7 +55,7 @@ export default function Squares() {
           // Nasty bug! We should map over a slice of state, instead of 'listOfSquareIds'.
           // We might say: "it works, though!" But if the list of squares is not state,
           // we could never add squares, change squares or remove squares in the future. Fix!
-          squares.map(id =>
+          listOfSquareIds.map(id =>
             <div
               id={id}
               key={id}
